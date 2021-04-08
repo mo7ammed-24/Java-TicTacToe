@@ -1,38 +1,24 @@
-class Player     //constructor.  requires string to set player type
-    (  //player makes moves and can be human or AI
-    private val type // whether the player is human or AI
-    : String
-) {
-    private var index = 0
-    private var column = 0
+class Player(private val type: String) {   //constructor.  requires string to set player type
+    private var index = 0                   //player makes moves and can be human or AI
+    private var column = 0                  // whether the player is human or AI
     private var row = 0
-    private var turn //whether or not it's the player's turn
-            = false
-
+    private var turn = false            //whether or not it's the player's turn
     //player "goes" while it's their turn
     fun go() {
         turn = true
-
         // if AI, do computery things
         if (type === "AI") {
-
             //let user know that AI is going
-            print("\tThe computer will now make a move..")
-            delay(1000, TicTacToe.game!!.gridSize) //take a second to go to make it appear as if computer is thinking
+            print("\tThe computer will now make a move..");delay(1000, TicTacToe.game!!.gridSize) //take a second to go to make it appear as if computer is thinking
             while (turn) {
                 //AI selects a random empty cell and places corrosponding mark
-                index =
-                    Math.round((TicTacToe.game!!.gridSize * TicTacToe.game!!.gridSize - 1) * Math.random()).toInt()
-                move(index, TicTacToe.game!!)
-            }
+                index = Math.round((TicTacToe.game!!.gridSize * TicTacToe.game!!.gridSize - 1) * Math.random()).toInt()
+                move(index) }
         } else {
             //if human, do human stuff
-            println("\tPlease place an X on the grid.  You can")
-            TicTacToe.user_input = TicTacToe.getInput("\tdo this by typing 1A, 1B, 1C, 2A, etc.: ")
-
+            println("\tPlease place an X on the grid.  You can");TicTacToe.user_input = TicTacToe.getInput("\tdo this by typing 1A, 1B, 1C, 2A, etc.: ")
             //while it's the player's turn...
             while (turn) {
-
                 //validate user input
                 if (valid_input(TicTacToe.user_input!!)) {
                     if (TicTacToe.user_input!!.length == 2) {
@@ -50,7 +36,7 @@ class Player     //constructor.  requires string to set player type
 
                         //if valid input, and cell isn't taken already,
                         //place mark in selected cell and end turn
-                        move(index, TicTacToe.game!!)
+                        move(index)
                         if (turn) {
                             TicTacToe.user_input =
                                 TicTacToe.getInput("That space is already in play!  Please choose another spot: ")
@@ -64,7 +50,7 @@ class Player     //constructor.  requires string to set player type
     }
 
     //player places mark
-    private fun move(index: Int, game: Game) {
+    private fun move(index: Int) {            //deleting the parameter game:Game
         if (TicTacToe.game!!.setCell(index)) {
             turn = false
         }
@@ -90,17 +76,9 @@ class Player     //constructor.  requires string to set player type
         }
 
         //encapsulated code for AI delay behavior
-        private fun delay(amount: Int, gameSize: Int) {
-            try {
-                Thread.sleep((amount * 3 / (gameSize * gameSize)).toLong())
-            } catch (ex: InterruptedException) {
-                Thread.currentThread().interrupt()
-            }
-        }
+        private fun delay(amount: Int =1000, gameSize: Int)=Thread.sleep((amount * 3 / (gameSize * gameSize)).toLong())   //convert to compact function and make default value
 
         //converts the letter input for row/column selection into a usable number
-        private fun letterToNumber(str: String): Int {
-            return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(str) % 26 + 1
-        }
+        private fun letterToNumber(str: String)="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(str) % 26 + 1   //convert to compact function
     }
 }
