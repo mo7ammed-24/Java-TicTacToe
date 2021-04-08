@@ -7,20 +7,14 @@ class Game(var gridSize: Int) {
 
     //checks to see if a win condition has been met and
     //outputs the current game map to the console
-    fun output(): String {
+    fun output(): String
+    {
         checkForTicTacToe()
         return drawMap()
     }
 
     //places an X or an O in a cell ont he game map
-    fun setCell(index: Int): Boolean {
-        return if (grid[index]!!.empty) {
-            grid[index]!!.placeMark()
-            true
-        } else {
-            false
-        }
-    }
+    fun setCell(index: Int)=if (grid[index]!!.empty) {grid[index]!!.placeMark();true} else false //convert to compact function
 
     //checks to see if a win condition has been met
     private fun checkForTicTacToe(): Boolean {
@@ -42,7 +36,7 @@ class Game(var gridSize: Int) {
             arrayOfNulls<Cell>(
                 gridSize
             )
-        } //there are only ever two diagonals which complete a tictactoe in a square
+        } //there are only ever two diagonals which complete a TicTacToe in a square
 
         //if every cell is filled, end the game
         gridFilled = true
@@ -77,7 +71,7 @@ class Game(var gridSize: Int) {
             }
         }
 
-        //if a row has all the same content and isnt empty
+        //if a row has all the same content and isn't empty
         //then the game is over
         for (row in rows) {
 
@@ -100,7 +94,7 @@ class Game(var gridSize: Int) {
             }
         }
 
-        //if a column has all the same content and isnt empty
+        //if a column has all the same content and isn't empty
         //then the game is over
         for (column in columns) {
 
@@ -123,7 +117,7 @@ class Game(var gridSize: Int) {
             }
         }
 
-        //if a diagonal has all the same content and isnt empty
+        //if a diagonal has all the same content and isn't empty
         //then the game is over
         for (diagonal in diagonals) {
 
